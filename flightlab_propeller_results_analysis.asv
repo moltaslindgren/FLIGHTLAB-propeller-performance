@@ -1,0 +1,48 @@
+%=====FLIGHT LAB - Experimental results propeller analysis===============
+%------------------------------------------------------------------------
+clear;
+clc;
+close all;
+
+filename = 'moltas_prop_run1.dat';
+
+M=readmatrix(filename);
+
+
+% EXTRACTING THE EXPERIMENTAL RESULTS
+
+rpm=M(:,1);
+I_avg = M(:,2); % unit: [A]
+I_max = M(:,3); % unit: [A]
+I_min = M(:,4); % unit: [A]
+V_avg = M(:,5); % unit: [V]
+V_max = M(:,6); % unit: [V]
+V_min = M(:,7); % unit: [V]
+P_avg = M(:,8); % unit: [W]
+P_max = M(:,9); % unit: [W]
+P_min = M(:,10); % unit: [W] 
+thrust_g = M(:,11); % unit: [g]
+
+%F=mg
+% -> T[N] = T[g] * gravity/1000
+
+g = 9.80665;
+
+thrust_N = thrust_g * g/1000;
+
+
+%Safety checking experimental data
+
+valid = isfinite(rpm) & isfinite(I_avg) & isfinite(I_max) & isfinite(I_min) & isfinite(V_avg) & isfinite(V_max) & isfinite(V_min) & isfinite(P_avg) & isfinite(P_max) & isfinite(P_min) & isfinite(thrust_g);
+
+rpm = rpm(valid);
+I_avg = I_avg(valid);
+I_max = I_max(valid);
+I_min = I_min(valid);
+V_avg = V_avg(valid);
+V_max = V_max(valid);
+V_min = V_min(valid);
+P_avg = P_avg(valid);
+P_max = P_max(valid);
+P_min = P_min(valid);
+thrust_N = thrust_
